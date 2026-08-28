@@ -162,3 +162,9 @@ username.
 **US-13.1** — As a reader, I want to see roughly how long an article will
 take to read, so that I can decide whether to read it now.
 *Related requirements: REQ-13.1*
+
+---
+
+**US-18.1** — As a reader, I want to download an article as a Markdown
+file, so that I can save or read it offline in my own editor/notes app.
+*Related requirements: REQ-18.1*

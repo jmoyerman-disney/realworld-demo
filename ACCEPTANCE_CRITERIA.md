@@ -469,6 +469,22 @@ changed.
   reading-time estimate is computed, then it displays a proportionally
   larger, non-crashing numeric estimate.
 
+### US-18.1 — Download article as Markdown
+*(REQ-18.1)*
+
+- **AC-18.1** — Given the article detail page for an article the current
+  viewer can already read, when the page has finished loading the
+  article's body, then a download control is visible and enabled.
+- **AC-18.2** — Given the download control is enabled, when the viewer
+  activates it, then the browser downloads a `.md` file whose content is
+  the article's title and body rendered as readable Markdown.
+- **AC-18.3** — Given the download control is activated, when the
+  downloaded file is inspected, then its filename is derived from the
+  article's slug (`<slug>.md`).
+- **AC-18.4** — Given the article's body has not yet loaded, when the
+  page is rendered, then the download control is disabled rather than
+  producing a file with empty or missing content.
+
 ---
 
 ## Traceability Matrix
@@ -529,3 +545,4 @@ changed.
 | REQ-7.1 | US-7.1 | AC-7.1, AC-7.2 |
 | REQ-7.2 | US-7.1 | AC-7.3, AC-7.4 |
 | REQ-13.1 | US-13.1 | AC-13.1–AC-13.4 |
+| REQ-18.1 | US-18.1 | AC-18.1–AC-18.4 |

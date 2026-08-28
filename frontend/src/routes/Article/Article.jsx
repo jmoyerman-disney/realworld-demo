@@ -27,6 +27,17 @@ function Article() {
       });
   }, [isAuth, slug, headers, state, navigate]);
 
+  const handleDownload = () => {
+    const content = `# ${title}\n\n${body}`;
+    const blob = new Blob([content], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${slug}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="article-page">
       <BannerContainer>
@@ -41,6 +52,14 @@ function Article() {
           <div className="col-md-12">
             {body && <Markdown options={{ forceBlock: true }}>{body}</Markdown>}
             <ArticleTags tagList={tagList} />
+            <button
+              type="button"
+              className="btn btn-sm btn-outline-secondary"
+              disabled={!body}
+              onClick={handleDownload}
+            >
+              Download as Markdown
+            </button>
           </div>
         </div>
 
