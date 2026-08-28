@@ -149,3 +149,10 @@ blocked at the database level, not just by the tool's own claims.
 so that I can read comfortably in low light and according to my own
 preference.
 *Related requirements: REQ-1.1, REQ-1.2, REQ-1.3*
+
+---
+
+**US-7.1** — As a visitor, I want to browse a directory of all authors, so
+that I can discover new people to follow without already knowing their
+username.
+*Related requirements: REQ-7.1, REQ-7.2*
