@@ -404,6 +404,87 @@ changed.
   use of the server in a session requires an interactive permission
   prompt.
 
+### US-1.1 — Dark mode / theme toggle
+*(REQ-1.1, REQ-1.2, REQ-1.3)*
+
+- **AC-1.1** — Given any page of the site, in either authentication
+  state, when the visitor clicks the navbar's theme toggle, then the
+  theme switches between light and dark immediately, with no page
+  reload.
+- **AC-1.2** — Given a visitor has chosen a theme via the toggle, when
+  they reload the page or return in a new visit in the same browser,
+  then the same theme is applied.
+- **AC-1.3** — Given a browser with no stored theme preference, when the
+  site loads, then the theme matches the browser's `prefers-color-scheme`
+  ("dark" preference results in the dark theme, otherwise the light
+  theme is applied).
+- **AC-1.4** — Given a browser with no stored theme preference, when the
+  OS/browser color-scheme preference changes while the site is open, then
+  the displayed theme updates to match; given a visitor has already made
+  an explicit choice via the toggle, then a subsequent OS/browser
+  preference change does not alter the displayed theme.
+- **AC-1.5** — Given the dark theme is not selected (`data-theme` absent
+  or `"light"`), when any page is inspected, then its appearance is
+  pixel-equivalent to the site's appearance before the dark theme was
+  introduced.
+- **AC-1.6** — Given the dark theme is selected, when the navbar (and its
+  user dropdown), forms (login, sign up, settings, article editor), cards
+  (article preview, article page, comments), tags, and the profile page
+  are inspected, then all text, borders, and icons remain legible — none
+  are invisible or indistinguishable from their background.
+
+### US-7.1 — Browse a directory of authors
+*(REQ-7.1, REQ-7.2)*
+
+- **AC-7.1** — Given no `Authorization` header, when the user directory
+  endpoint is requested, then the request succeeds and returns a page of
+  user entries (username, avatar image, bio), each excluding email and
+  password.
+- **AC-7.2** — Given no explicit page size is provided, when the user
+  directory endpoint is requested, then results are limited to 3 users per
+  page, ordered by username ascending.
+- **AC-7.3** — Given the user directory page is rendered, when an entry is
+  selected, then the visitor navigates to that user's full profile page.
+- **AC-7.4** — Given more users exist than fit on one page, when the
+  directory page is viewed, then pagination controls allow navigating to
+  subsequent pages, and at most one page of entries is loaded/rendered at a
+  time.
+
+---
+
+### US-13.1 — Reading time badge alongside article date
+*(REQ-13.1)*
+
+- **AC-13.1** — Given an article with a body, when its preview card or
+  detail page renders, then an estimated reading time (e.g. "4 min read")
+  is shown next to the existing date, without altering the date's own
+  formatting.
+- **AC-13.2** — Given an article's body is edited and re-rendered, when
+  the reading-time estimate is recomputed, then it reflects the new body
+  rather than the previous one.
+- **AC-13.3** — Given an article with an empty or near-empty body, when
+  the reading-time estimate is computed, then it displays "1 min read"
+  rather than "0 min read", a missing value, or `NaN`.
+- **AC-13.4** — Given an article with a very long body, when the
+  reading-time estimate is computed, then it displays a proportionally
+  larger, non-crashing numeric estimate.
+
+### US-18.1 — Download article as Markdown
+*(REQ-18.1)*
+
+- **AC-18.1** — Given the article detail page for an article the current
+  viewer can already read, when the page has finished loading the
+  article's body, then a download control is visible and enabled.
+- **AC-18.2** — Given the download control is enabled, when the viewer
+  activates it, then the browser downloads a `.md` file whose content is
+  the article's title and body rendered as readable Markdown.
+- **AC-18.3** — Given the download control is activated, when the
+  downloaded file is inspected, then its filename is derived from the
+  article's slug (`<slug>.md`).
+- **AC-18.4** — Given the article's body has not yet loaded, when the
+  page is rendered, then the download control is disabled rather than
+  producing a file with empty or missing content.
+
 ---
 
 ## Traceability Matrix
@@ -458,3 +539,10 @@ changed.
 | REQ-046 | US-027 | AC-074, AC-075 |
 | REQ-047 | US-028 | AC-076, AC-077 |
 | REQ-048 | US-028 | AC-078, AC-079 |
+| REQ-1.1 | US-1.1 | AC-1.1, AC-1.2 |
+| REQ-1.2 | US-1.1 | AC-1.3, AC-1.4 |
+| REQ-1.3 | US-1.1 | AC-1.5, AC-1.6 |
+| REQ-7.1 | US-7.1 | AC-7.1, AC-7.2 |
+| REQ-7.2 | US-7.1 | AC-7.3, AC-7.4 |
+| REQ-13.1 | US-13.1 | AC-13.1–AC-13.4 |
+| REQ-18.1 | US-18.1 | AC-18.1–AC-18.4 |

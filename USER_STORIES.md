@@ -142,3 +142,29 @@ read-only MCP access to the local development database, so that I can
 inspect schema and data directly while any accidental write attempt is
 blocked at the database level, not just by the tool's own claims.
 *Related requirements: REQ-047, REQ-048*
+
+---
+
+**US-1.1** — As a user, I want to switch the site to a dark color theme,
+so that I can read comfortably in low light and according to my own
+preference.
+*Related requirements: REQ-1.1, REQ-1.2, REQ-1.3*
+
+---
+
+**US-7.1** — As a visitor, I want to browse a directory of all authors, so
+that I can discover new people to follow without already knowing their
+username.
+*Related requirements: REQ-7.1, REQ-7.2*
+
+---
+
+**US-13.1** — As a reader, I want to see roughly how long an article will
+take to read, so that I can decide whether to read it now.
+*Related requirements: REQ-13.1*
+
+---
+
+**US-18.1** — As a reader, I want to download an article as a Markdown
+file, so that I can save or read it offline in my own editor/notes app.
+*Related requirements: REQ-18.1*

@@ -392,6 +392,19 @@ existing application role's (`POSTGRES_USER`) privileges, and applies only
 to local development — no production database is reachable from this
 role.
 
+### REQ-7.1 — Public user directory listing
+The system provides a listing of user accounts (username, avatar image, and
+bio) that does not require authentication. Listing supports a page size
+(`limit`, default 3) and a page index (`offset`, default 0), with results
+ordered by username ascending. Each returned entry excludes the account's
+email and password.
+
+### REQ-7.2 — User directory page displays a paginated, linked list of authors
+The client renders the user directory as a paginated list of entries
+(username, avatar, bio snippet), fetched from REQ-7.1's listing. Each entry
+links to that user's full profile page. The page never loads or renders
+more than one page of entries at a time.
+
 ### REQ-048 — MCP server for read-only local Postgres access
 The repository's checked-in `.mcp.json` configures a Postgres MCP server
 (`postgres-readonly`) that connects using the `mcp_readonly` role
@@ -405,3 +418,61 @@ tools are not added to any auto-approval allowlist in
 `.claude/settings.json`, so the first use of the server in a session
 requires the normal Claude Code permission prompt rather than running
 unattended.
+
+---
+
+### REQ-1.1 — Dark/light theme toggle available from any page
+A control in the navbar, present on every page regardless of
+authentication state, lets a visitor switch the site between a light and
+a dark color theme. Selecting a theme takes effect immediately, without a
+page reload, by setting a `data-theme` attribute (`"light"` or `"dark"`)
+on the document root. The chosen theme is written to `localStorage`
+(key `"theme"`) and is restored on subsequent page loads and future
+visits from the same browser.
+
+### REQ-1.2 — Unset theme preference defaults to OS/browser color-scheme preference
+When no theme has been explicitly chosen in a given browser (no stored
+`localStorage` value), the site's theme is derived from the OS/browser
+`prefers-color-scheme` media query at load time: `dark` if the browser
+reports a dark preference, `light` otherwise. Special case: for as long
+as no explicit choice has been made, a live change in the OS/browser
+preference (e.g. the OS switching color scheme while the site remains
+open) is picked up and reflected immediately. Once a visitor has
+explicitly chosen a theme via REQ-1.1's toggle, further OS/browser
+preference changes no longer alter the displayed theme.
+
+### REQ-1.3 — Dark theme is additive; light theme is unmodified
+The dark theme is implemented entirely as a new, additive stylesheet
+whose rules are scoped under a `[data-theme="dark"]` selector; the
+existing light-theme stylesheet is not modified. Consequently, the site's
+appearance when the dark theme is not selected (`data-theme` absent or
+`"light"`) is pixel-equivalent to its appearance before this requirement
+existed. The dark theme's scoped overrides cover every existing page and
+component (navbar and its user dropdown, forms, buttons, cards, the
+article page and its comments, tags, and the profile/settings pages), so
+that no text, border, or icon becomes illegible against the dark
+background.
+
+### REQ-13.1 — Estimated reading time shown alongside article date
+Article preview cards and the article detail page display an estimated
+reading time (e.g. "4 min read"), derived from the article's body, next
+to the existing date display (REQ-040). The estimate does not displace or
+reformat the date itself, and updates whenever the underlying body
+changes.
+
+Boundary: an empty or near-empty body yields a minimum estimate of "1 min
+read" rather than "0 min read" or a missing/`NaN` value. A very long body
+yields a proportionally larger estimate rather than crashing or
+overflowing to a non-numeric display.
+
+### REQ-18.1 — Download article as a Markdown file
+The article detail page offers a control that lets the current viewer
+download the displayed article as a standalone `.md` file, built from the
+article's title and body. The downloaded file's name is derived from the
+article's slug (`<slug>.md`), and its content is the title and body
+rendered as readable Markdown text. No additional access beyond viewing
+the article is required or granted; the download is produced entirely in
+the browser, with no backend request.
+
+Boundary: while the article's body has not yet loaded, the control is
+disabled rather than producing a file with empty or missing content.
