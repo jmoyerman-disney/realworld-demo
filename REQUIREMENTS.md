@@ -452,3 +452,15 @@ component (navbar and its user dropdown, forms, buttons, cards, the
 article page and its comments, tags, and the profile/settings pages), so
 that no text, border, or icon becomes illegible against the dark
 background.
+
+### REQ-13.1 — Estimated reading time shown alongside article date
+Article preview cards and the article detail page display an estimated
+reading time (e.g. "4 min read"), derived from the article's body, next
+to the existing date display (REQ-040). The estimate does not displace or
+reformat the date itself, and updates whenever the underlying body
+changes.
+
+Boundary: an empty or near-empty body yields a minimum estimate of "1 min
+read" rather than "0 min read" or a missing/`NaN` value. A very long body
+yields a proportionally larger estimate rather than crashing or
+overflowing to a non-numeric display.

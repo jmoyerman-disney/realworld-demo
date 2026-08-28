@@ -156,3 +156,9 @@ preference.
 that I can discover new people to follow without already knowing their
 username.
 *Related requirements: REQ-7.1, REQ-7.2*
+
+---
+
+**US-13.1** — As a reader, I want to see roughly how long an article will
+take to read, so that I can decide whether to read it now.
+*Related requirements: REQ-13.1*
