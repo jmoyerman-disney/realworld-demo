@@ -404,6 +404,22 @@ changed.
   use of the server in a session requires an interactive permission
   prompt.
 
+### US-18.1 — Download article as Markdown
+*(REQ-18.1)*
+
+- **AC-18.1** — Given the article detail page for an article the current
+  viewer can already read, when the page has finished loading the
+  article's body, then a download control is visible and enabled.
+- **AC-18.2** — Given the download control is enabled, when the viewer
+  activates it, then the browser downloads a `.md` file whose content is
+  the article's title and body rendered as readable Markdown.
+- **AC-18.3** — Given the download control is activated, when the
+  downloaded file is inspected, then its filename is derived from the
+  article's slug (`<slug>.md`).
+- **AC-18.4** — Given the article's body has not yet loaded, when the
+  page is rendered, then the download control is disabled rather than
+  producing a file with empty or missing content.
+
 ---
 
 ## Traceability Matrix
@@ -458,3 +474,4 @@ changed.
 | REQ-046 | US-027 | AC-074, AC-075 |
 | REQ-047 | US-028 | AC-076, AC-077 |
 | REQ-048 | US-028 | AC-078, AC-079 |
+| REQ-18.1 | US-18.1 | AC-18.1–AC-18.4 |
